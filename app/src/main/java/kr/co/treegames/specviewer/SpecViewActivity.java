@@ -7,6 +7,9 @@ import android.util.DisplayMetrics;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
+import java.time.ZoneId;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class SpecViewActivity extends AppCompatActivity {
     private TextView txtSpec;
@@ -38,8 +41,11 @@ public class SpecViewActivity extends AppCompatActivity {
         sb.append("Id: ");
         sb.append(Build.ID);
         sb.append(LINE_SEPARATOR);
-        sb.append("Serial: ");
-        sb.append(Build.SERIAL);
+        sb.append("Display: ");
+        sb.append(Build.DISPLAY);
+        sb.append(LINE_SEPARATOR);
+        sb.append("Fingerprint: ");
+        sb.append(Build.FINGERPRINT);
         sb.append(LINE_SEPARATOR);
         sb.append("Product: ");
         sb.append(Build.PRODUCT);
@@ -52,6 +58,16 @@ public class SpecViewActivity extends AppCompatActivity {
         sb.append(LINE_SEPARATOR);
         sb.append("SDK: ");
         sb.append(Build.VERSION.SDK_INT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && Build.VERSION.BASE_OS != null
+                && !Build.VERSION.BASE_OS.isEmpty()) {
+            sb.append(LINE_SEPARATOR);
+            sb.append("BASE OS: ");
+            sb.append(Build.VERSION.BASE_OS);
+        }
+        sb.append(LINE_SEPARATOR);
+        sb.append("Code Name: ");
+        sb.append(Build.VERSION.CODENAME);
         sb.append(LINE_SEPARATOR);
         sb.append("Release: ");
         sb.append(Build.VERSION.RELEASE);
@@ -131,6 +147,18 @@ public class SpecViewActivity extends AppCompatActivity {
         sb.append((int)(dm.heightPixels/density) + "x" + (int)(dm.widthPixels/density));
         sb.append(LINE_SEPARATOR);
         sb.append("************ SCREEN INFORMATION ************");
+        sb.append(LINE_SEPARATOR);
+
+        sb.append(LINE_SEPARATOR);
+        sb.append("************ OTHER INFORMATION ************");
+        sb.append(LINE_SEPARATOR);
+        sb.append("Locale: ");
+        sb.append(Locale.getDefault());
+        sb.append(LINE_SEPARATOR);
+        sb.append("Timezone: ");
+        sb.append(TimeZone.getDefault().getID());
+        sb.append(LINE_SEPARATOR);
+        sb.append("************ OTHER INFORMATION ************");
         sb.append(LINE_SEPARATOR);
 
         txtSpec.setText(sb.toString());
